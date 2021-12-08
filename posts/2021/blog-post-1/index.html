@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blogue Eleventy</title>
+    <link rel="stylesheet" href="/eleventy-gh-demo/css/site.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|Roboto&display=fallback" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <a href="/eleventy-gh-demo/" class="link--home">Mon Blogue</a>
+      <a href="/eleventy-gh-demo/About" class="link--about">A propos</a>
+    </header>
+    <main>
+      <article>
+  <h1>Enfin un nouveau billet</h1>
+  <time datetime="2021-12-08T00:00:00.000Z">December 8, 2021</time>
+  <!-- Excerpt Start -->
+<p>C'est le premier billet depuis 2 and et demi !</p>
+<!-- Excerpt End -->
+<p>Mais au moins, le blogue est maintenant hébergé sur GitHub Pages :)</p>
+<p>Grace à l'action suivante :</p>
+<pre><code class="language-yaml">name: Build Eleventy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js $
+        uses: actions/setup-node@v1
+        with:
+          node-version: $
+
+      - name: Install dependencies &amp; build
+        run: |
+          npm ci
+          npm run build          
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_dir: ./_site
+          github_token: $
+</code></pre>
+<p>Et surtout grâce à <a href="https://www.rockyourcode.com/how-to-deploy-eleventy-to-github-pages-with-github-actions/">Sophia Brandt</a>.</p>
+
+</article>
+    </main>
+    <footer>&copy; Mon Blogue</footer>
+  </body>
+</html>
